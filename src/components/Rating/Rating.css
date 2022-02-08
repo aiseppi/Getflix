@@ -1,0 +1,15 @@
+#ratingSpan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#starIcon {
+  color: rgba(211, 200, 54, 0.911);
+}
+#rating {
+  font-size: 1rem;
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+}
