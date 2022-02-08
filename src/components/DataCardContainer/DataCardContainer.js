@@ -20,23 +20,20 @@ export default function DataCardContainer({
     ? `
     https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${searchInput}&page=1&include_adult=false&page=${page}`
     : `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}&page=${page}`;
-  console.log(url + "   url");
   useEffect(() => {
     const timer = setTimeout(() => {
       getMovies();
       async function getMovies() {
         setCounter(counter + 1);
-        console.log("trying to fetch");
         const response = await fetch(url);
-        console.log("awaiting response");
         const data = await response.json();
         const { results, total_pages } = data;
         handleTotalPages(total_pages);
-        console.log(data);
+        // let filteredResults = results.filter(item => item.media_type != "person");
+        // console.log(filteredResults);
         setDataList(results ? results : []);
       }
     }, 2000);
-    console.log(`page: ${page}`);
     return () => clearTimeout(timer);
   }, [filterText]);
 
@@ -44,16 +41,15 @@ export default function DataCardContainer({
     getMovies();
     async function getMovies() {
       setCounter(counter + 1);
-      console.log("trying to fetch");
       const response = await fetch(url);
-      console.log("awaiting response");
       const data = await response.json();
       const { results, total_pages } = data;
       handleTotalPages(total_pages);
+      //       let filteredResults = results.filter(item => item.media_type != "person");
+      // console.log(filteredResults);
       setDataList(results ? results : []);
     }
   }, [page]);
-  console.log(dataList);
 
   let finalList = dataList
     ? dataList.map((item, index) => {
