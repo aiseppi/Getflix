@@ -12,7 +12,7 @@ export default function SearchBar({ onFilterChanged }) {
       <div>
         <TextField
           id="textField"
-          label="Search Getflix"
+          label="I'm looking for..."
           variant="outlined"
           style={{ width: "75%" }}
           color="secondary"
