@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import DataCard from "../DataCard/DataCard";
 import "./DataCardContainer.css";
 
-export default function DataCardContainer({
-  filterText,
-  page,
-  getTotalPages
-  // searchByTitleChecked,
-  // searchByYearChecked
-}) {
+export default function DataCardContainer({ filterText, page, getTotalPages }) {
   function handleTotalPages(totalPages) {
     getTotalPages(totalPages);
   }
@@ -32,6 +26,7 @@ export default function DataCardContainer({
         // let filteredResults = results.filter(item => item.media_type != "person");
         // console.log(filteredResults);
         setDataList(results ? results : []);
+        console.log(results);
       }
     }, 2000);
     return () => clearTimeout(timer);
