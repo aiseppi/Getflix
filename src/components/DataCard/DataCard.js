@@ -30,6 +30,8 @@ export default function DataCard({ key, item }) {
   const handleClose = () => {
     setOpen(false);
   };
+  let overview = item.overview.toString().replace(/&amp;/g, "&");
+
   return (
     <div>
       <div id="cardContentMainContainer" onClick={handleOpen}>
@@ -102,7 +104,7 @@ export default function DataCard({ key, item }) {
               {item.original_title ? item.original_title : item.name}
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {item.overview}
+              {overview}
             </Typography>
           </Box>
         </Box>
