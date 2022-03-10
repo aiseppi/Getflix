@@ -47,9 +47,9 @@ export default function DataCardContainer({ filterText, page, getTotalPages }) {
   }, [page]);
 
   let finalList = dataList
-    ? dataList.map((item, index) => {
+    ? dataList.map((item) => {
         return (
-          <DataCard key={index} item={item}>
+          <DataCard key={item.id} item={item}>
             {" "}
           </DataCard>
         );

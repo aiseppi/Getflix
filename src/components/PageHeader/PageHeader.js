@@ -5,10 +5,11 @@ import React from "react";
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import TheatersTwoToneIcon from "@mui/icons-material/TheatersTwoTone";
+// import logomain from "./media/logo/logomain.png";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
-    color: "purple",
+    color: "#5F0F4E",
     position: "absolute",
     top: "0%",
     left: "1%"
@@ -27,25 +28,8 @@ export default function PageHeader() {
   const classes = useStyles();
   return (
     <div>
-      {/* <div id="logoContainer">
-        <TheatersTwoToneIcon
-          className={classes.icon}
-          sx={{ fontSize: 95, transform: "rotate(90deg)" }}
-        />
-        <Typography
-          className={classes.iconTypography}
-          sx={{
-            fontSize: 14.5,
-            letterSpacing: "",
-            fontFamily: "Roboto Condensed, sans-serif",
-            fontWeight: "bolder",
-            display: "flex",
-            flexDirection: "wrap"
-          }}
-        >
-          GETFLIX
-        </Typography> */}
-      <Typography
+      <img src="./media/logo/logomain.png" />
+      {/* <Typography
         sx={{
           fontFamily: "Roboto Condensed, sans-serif",
           fontSize: 50,
@@ -55,7 +39,7 @@ export default function PageHeader() {
         }}
       >
         GETFLIX
-      </Typography>
+      </Typography> */}
       {/* </div> */}
     </div>
   );
