@@ -101,6 +101,8 @@ export default function DataCard({ item }) {
     return runtime ? `(${rhours}h ${rminutes}m)` : "";
   };
 
+  let releaseYear = new Date(item.release_date).getFullYear();
+
   return (
     <div>
       <div id="cardContentMainContainer" onClick={handleOpen}>
@@ -173,7 +175,7 @@ export default function DataCard({ item }) {
             <div class="modal-title-container">
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 {item.original_title ? item.original_title : item.name}{" "}
-                {timeConvert()}
+                {releaseYear ? `(${releaseYear})` : ""}
               </Typography>
               <Typography>{genresList}</Typography>
             </div>
