@@ -1,18 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Rating from "../Rating/Rating";
-import { makeStyles } from "@mui/styles";
 import { Modal, Typography, Box } from "@mui/material";
 import "./DataCard.css";
 import { LineAxisOutlined } from "@mui/icons-material";
 import axios from "axios";
+import { styled } from "@mui/system";
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
+const StyledModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
+});
+
+const StyledOuterBox = styled(Box)({
+  backgroundColor: "#FAF3F3",
+  height: "50%",
+  width: "50%",
+  padding: "1rem",
+  position: "relative",
+  zIndex: 1,
+
+  "@media (max-width: 500px)": {
+    width: "30%",
+    backgroundColor: "red"
   }
-}));
+});
+
+const StyledBackdropBox = styled(Box)({
+  position: "absolute",
+  zIndex: 2,
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "30%",
+  backgroundSize: "100%",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center"
+});
+
+const StyledImage = styled("img")({
+  width: "100%",
+  height: "100%",
+  objectFit: "cover"
+});
+
+const StyledTextOverlayBox = styled(Box)({
+  position: "absolute",
+  zIndex: 3,
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "30%",
+  backgroundColor: "rgb(0, 0, 0, 0.5)"
+});
+
+const StyledOverlayText = styled(Typography)({
+  color: "#FFF",
+  fontSize: "1rem"
+});
 
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
@@ -27,16 +72,7 @@ export default function DataCard({ item }) {
   const [itemDetails, setitemDetails] = useState();
   const [genres, setGenres] = useState();
   const [runtime, setRuntime] = useState();
-  const classes = useStyles();
-
-  // useEffect(()=> {
-  //   getMovieDetails();
-  //   async function getMovieDetails(){
-  //     const response = await fetch(`https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}&language=en-US`);
-  //     const data = await response.json();
-  //     console.log(data);
-  //   }
-  // }, [setOpen]);
+  // const classes = useStyles();
 
   const getMovieDetails = () => {
     axios
@@ -125,66 +161,33 @@ export default function DataCard({ item }) {
         </div>
       </div>
 
-      <Modal
+      <StyledModal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className={classes.modal}
       >
-        <Box
-          sx={{
-            position: "relative",
-            width: 600,
-            height: 200,
-            borderRadius: 2
-          }}
-        >
-          <Box
-            sx={{
-              bgcolor: "background.paper",
-              border: "2px solid #FFFFFF",
-              boxShadow: (theme) => theme.shadows[5],
-              padding: 2,
-              position: "absolute",
-              backgroundImage: `url(${backdropPath})`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              filter: "blur(2px)",
-              webkitFilter: "blur(2px)",
-              zIndex: -1,
-              width: "100%",
-              height: "100%",
-              borderRadius: 2
-            }}
-          ></Box>
-          <Box
-            sx={{
-              zIndex: 3,
-              color: "White",
-              padding: 2,
-              width: "100%",
-              height: "100%",
-              border: "2px solid #FFFFFF",
-              borderRadius: 2,
-              overflow: "scroll",
-              backgroundColor: "rgba(0,0,0, 0.5)"
-            }}
-          >
-            <div class="modal-title-container">
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {item.original_title ? item.original_title : item.name}{" "}
-                {releaseYear ? `(${releaseYear})` : ""}
-              </Typography>
-              <Typography>{genresList}</Typography>
-            </div>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {item.overview.toString().replace(/&amp;/g, "&")}
-            </Typography>
-          </Box>
-        </Box>
-      </Modal>
+        <StyledOuterBox>
+          <StyledBackdropBox>
+            <StyledImage src={backdropPath} />
+          </StyledBackdropBox>
+
+          <StyledTextOverlayBox>
+            <StyledOverlayText
+              // className={classes.overlayText}
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              {item.original_title ? item.original_title : item.name}{" "}
+              {releaseYear ? `(${releaseYear})` : ""}
+            </StyledOverlayText>
+          </StyledTextOverlayBox>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </StyledOuterBox>
+      </StyledModal>
     </div>
   );
 }
