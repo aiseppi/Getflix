@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import DataCard from "../DataCard/DataCard";
-import "./DataCardContainer.css";
+import styled from "styled-components";
+
+const StyledContainer = styled("div")`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 
 export default function DataCardContainer({ filterText, page, getTotalPages }) {
   function handleTotalPages(totalPages) {
@@ -58,7 +64,7 @@ export default function DataCardContainer({ filterText, page, getTotalPages }) {
 
   return (
     <div>
-      <div id="cardsContainer">{finalList}</div>
+      <StyledContainer id="cardsContainer">{finalList}</StyledContainer>
     </div>
   );
 }
