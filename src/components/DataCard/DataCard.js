@@ -1,28 +1,79 @@
 import React, { useState } from "react";
 import Rating from "../Rating/Rating";
 import { Modal, Typography, Box } from "@mui/material";
-import "./DataCard.css";
-import { LineAxisOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { styled } from "@mui/system";
 
+const StyledCard = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  margin: "20px",
+  borderRadius: "20px",
+  width: "250x",
+  height: "400px",
+  fontSize: "1rem",
+
+  "@media (min-width: 500px)": {
+    width: "200px",
+    height: "350px"
+  },
+
+  "& .wrapper": {
+    width: "100%"
+  },
+
+  "& .poster-image": {
+    width: "100%",
+    height: "300px",
+    borderRadius: "5px",
+    boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px"
+  },
+
+  "& .item-info-container": {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "right",
+    fontSize: "0.75rem",
+    color: "black",
+    textAlign: "left",
+    paddingRight: "10px"
+  },
+
+  "& .title": {
+    fontWeight: "bold",
+    textAlign: "right",
+    minWidth: 0
+  },
+  "& .release-date": {
+    textAlign: "right"
+  }
+});
 const StyledModal = styled(Modal)({
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
+  flexDirection: "column",
+  outline: 0,
+
+  "& Box": {
+    outline: 0
+  }
 });
 
+const StyledTopBox = styled(Box)({
+  backgroundColor: "green",
+  height: "35%"
+});
 const StyledOuterBox = styled(Box)({
   backgroundColor: "#FAF3F3",
   height: "50%",
-  width: "50%",
-  padding: "1rem",
+  width: "80%",
+  // padding: "1rem",
   position: "relative",
   zIndex: 1,
 
-  "@media (max-width: 500px)": {
-    width: "30%",
-    backgroundColor: "red"
+  "@media (min-width: 1400px)": {
+    width: "40%"
   }
 });
 
@@ -32,16 +83,10 @@ const StyledBackdropBox = styled(Box)({
   top: 0,
   left: 0,
   width: "100%",
-  height: "30%",
+  height: "35%",
+  backgroundPosition: "50% 50%",
   backgroundSize: "100%",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center"
-});
-
-const StyledImage = styled("img")({
-  width: "100%",
-  height: "100%",
-  objectFit: "cover"
+  backgroundRepeat: "no-repeat"
 });
 
 const StyledTextOverlayBox = styled(Box)({
@@ -50,15 +95,33 @@ const StyledTextOverlayBox = styled(Box)({
   top: 0,
   left: 0,
   width: "100%",
-  height: "30%",
+  height: "35%",
   backgroundColor: "rgb(0, 0, 0, 0.5)"
 });
 
-const StyledOverlayText = styled(Typography)({
-  color: "#FFF",
-  fontSize: "1rem"
+const StyledBottomBox = styled(Box)({
+  height: "65%",
+  width: "100%"
+  // padding: "0.5rem"
 });
 
+const StyledOverlayText = styled(Typography)({
+  position: "absolute",
+  color: "#FFF",
+  fontSize: "1.15rem",
+  top: "80%",
+  left: "10px",
+  "@media (min-width: 700px": {
+    fontSize: "1.75rem",
+    top: "75%"
+  },
+  "@media (min-width: 1200px)": {
+    fontSize: "1.75rem",
+    top: "75%"
+  }
+});
+
+const StyledGenres = styled(Typography)({});
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
   let posterPath = item.poster_path
@@ -118,15 +181,7 @@ export default function DataCard({ item }) {
     setOpen(false);
   };
 
-  // let overview = item.overview.toString().replace(/&amp;/g, "&");
-
-  let genresList = genres
-    ? genres.map((item, index) => {
-        if (genres.length != index + 1) {
-          return item.name + " • ";
-        } else return item.name;
-      })
-    : [];
+  let overview = item.overview.toString().replace(/&amp;/g, "&");
 
   const timeConvert = () => {
     let num = runtime;
@@ -134,19 +189,31 @@ export default function DataCard({ item }) {
     let rhours = Math.floor(hours);
     let minutes = (hours - rhours) * 60;
     let rminutes = Math.round(minutes);
-    return runtime ? `(${rhours}h ${rminutes}m)` : "";
+    return runtime ? `${rhours}h ${rminutes}m` : "";
   };
+  let genresList = genres
+    ? genres.map((item, index) => {
+        if (genres.length != index + 1) {
+          return item.name + " • ";
+        } else return item.name + " • " + timeConvert();
+      })
+    : [];
 
   let releaseYear = new Date(item.release_date).getFullYear();
 
   return (
     <div>
-      <div id="cardContentMainContainer" onClick={handleOpen}>
+      <StyledCard id="cardContentMainContainer" onClick={handleOpen}>
         <div className="wrapper">
-          <img id="posterImage" src={posterPath} alt="poster" />
+          <img
+            className="poster-image"
+            id="posterImage"
+            src={posterPath}
+            alt="poster"
+          />
         </div>
-        <div id="itemInfoContainer">
-          <span id="title">
+        <div className="item-info-container" id="itemInfoContainer">
+          <span className="title" id="title">
             {item.original_title ? item.original_title : item.name}
           </span>
           {item.release_date ? (
@@ -159,7 +226,7 @@ export default function DataCard({ item }) {
             </span>
           )}
         </div>
-      </div>
+      </StyledCard>
 
       <StyledModal
         open={open}
@@ -168,24 +235,34 @@ export default function DataCard({ item }) {
         aria-describedby="modal-modal-description"
       >
         <StyledOuterBox>
-          <StyledBackdropBox>
-            <StyledImage src={backdropPath} />
-          </StyledBackdropBox>
+          <StyledTopBox>
+            <StyledBackdropBox sx={{ backgroundImage: `url(${backdropPath})` }}>
+              {/* <StyledImage src={backdropPath} /> */}
+            </StyledBackdropBox>
 
-          <StyledTextOverlayBox>
-            <StyledOverlayText
-              // className={classes.overlayText}
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
+            <StyledTextOverlayBox>
+              <StyledOverlayText
+                // className={classes.overlayText}
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+              >
+                {item.original_title ? item.original_title : item.name}{" "}
+                {releaseYear ? `(${releaseYear})` : ""}
+              </StyledOverlayText>
+            </StyledTextOverlayBox>
+          </StyledTopBox>
+          <StyledBottomBox>
+            <StyledGenres>{genresList}</StyledGenres>
+            <Typography
+              className="tagline"
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
             >
-              {item.original_title ? item.original_title : item.name}{" "}
-              {releaseYear ? `(${releaseYear})` : ""}
-            </StyledOverlayText>
-          </StyledTextOverlayBox>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+              {overview}
+            </Typography>
+            <Typography className="overview"></Typography>
+          </StyledBottomBox>
         </StyledOuterBox>
       </StyledModal>
     </div>

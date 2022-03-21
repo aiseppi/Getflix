@@ -1,9 +1,0 @@
-#searchBarContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-#textField {
-  width: 500px;
-  /* border: 1px solid red; */
-}

@@ -1,6 +1,33 @@
 import React from "react";
 import Pagination from "@mui/material/Pagination";
-import "./Pagination.css";
+import { styled } from "@mui/styles";
+
+const StyledPaginationContainer = styled("div")({
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  margin: "20px 0"
+});
+
+const StyledPaginationMobile = styled(Pagination)({
+  width: "100%",
+  display: "block",
+  margin: "auto",
+
+  "@media (min-width: 500px)": {
+    display: "none"
+  }
+});
+const StyledPaginationDesktop = styled(Pagination)({
+  display: "none",
+
+  "@media (min-width: 500px)": {
+    display: "block",
+    width: "100%",
+    margin: "auto"
+  }
+});
 
 export default function PaginationBar({ onPageChange, totalPages, page }) {
   function handleOnPageChange(e, value) {
@@ -10,15 +37,35 @@ export default function PaginationBar({ onPageChange, totalPages, page }) {
   console.log(totalPages);
 
   return (
-    <div id="paginationContainer">
-      <Pagination
-        id="pagination"
-        count={totalPages}
-        color="secondary"
-        defaultPage={1}
-        page={page}
-        onChange={handleOnPageChange}
-      />
+    <div>
+      <StyledPaginationContainer id="paginationContainer">
+        <StyledPaginationMobile
+          className="mobile-pagination"
+          id="pagination"
+          count={totalPages}
+          siblingCount={0}
+          boundaryCount={0}
+          color="secondary"
+          defaultPage={1}
+          page={page}
+          onChange={handleOnPageChange}
+          showFirstButton
+          showLastButton
+          size="large"
+        />
+
+        <StyledPaginationDesktop
+          className="desktop-pagination"
+          id="pagination"
+          count={totalPages}
+          color="secondary"
+          defaultPage={1}
+          page={page}
+          onChange={handleOnPageChange}
+          showFirstButton
+          showLastButton
+        />
+      </StyledPaginationContainer>
     </div>
   );
 }

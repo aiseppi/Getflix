@@ -1,33 +1,38 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import styled from "styled-components";
+import { styled } from "@mui/system";
 
-import "./SearchBar.css";
+const StyledSearchContainer = styled("div")({
+  width: "100%",
+  display: "flex",
+  justifyContent: "center"
+});
 
+const StyledTextField = styled(TextField)({
+  borderColor: "#e52a6f !important",
+  width: "350px !important",
+  fullWidth: "true",
+
+  "& .Mui-focused fieldset": {
+    borderColor: "#5f0f4e !important",
+    color: "#e52a6f !important"
+  },
+
+  "& .Mui-focused:hover fieldset": {
+    borderColor: "#5f0f4e !important"
+  },
+
+  "& :hover fieldset": {
+    border: "2px solid #e52a6f !important"
+  }
+});
 export default function SearchBar({ onFilterChanged }) {
-  const StyledTextField = styled(TextField)`
-    color: #e52a6f;
-    width: 500px;
-
-    & .Mui-focused fieldset {
-      border-color: #5f0f4e !important;
-      color: #e52a6f !important;
-    }
-
-    & .Mui-focused:hover fieldset {
-      border-color: #5f0f4e !important;
-    }
-    & :hover fieldset {
-      border: 2px solid #e52a6f !important;
-    }
-  `;
-
   function handleFilterTextChanged(e) {
     onFilterChanged(e.target.value);
   }
 
   return (
-    <div id="searchBarContainer">
+    <StyledSearchContainer id="searchBarContainer">
       <div>
         <StyledTextField
           id="textField"
@@ -38,6 +43,6 @@ export default function SearchBar({ onFilterChanged }) {
           onChange={handleFilterTextChanged}
         />
       </div>
-    </div>
+    </StyledSearchContainer>
   );
 }

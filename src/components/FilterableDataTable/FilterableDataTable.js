@@ -2,7 +2,18 @@ import React, { useState } from "react";
 import DataCardContainer from "../DataCardContainer/DataCardContainer";
 import PaginationBar from "../Pagination/Pagination";
 import SearchBar from "../SearchBar/SearchBar";
-import "./FilterableDataTable.css";
+import { styled } from "@mui/styles";
+
+const StyledMainContainer = styled("div")({
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: 0,
+  margin: 0
+});
+const StyledSearchBar = styled(SearchBar)({});
 
 export default function FilterableDataTable() {
   const [filterText, setFilterText] = useState("");
@@ -23,7 +34,7 @@ export default function FilterableDataTable() {
   }
 
   return (
-    <div id="mainContainer">
+    <StyledMainContainer id="mainContainer">
       <SearchBar onFilterChanged={handleFilterChanged} />
       <PaginationBar
         onPageChange={handlePageChange}
@@ -40,6 +51,6 @@ export default function FilterableDataTable() {
         totalPages={totalPages}
         page={page}
       />
-    </div>
+    </StyledMainContainer>
   );
 }
