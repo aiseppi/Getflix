@@ -68,7 +68,6 @@ const StyledModal = styled(Modal)({
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "column",
-  // position: "relative",
   outline: 0,
   width: "100%",
   height: "40%",
@@ -122,19 +121,20 @@ const StyledPosterImage = styled("img")({
   zIndex: 1
 });
 const StyledProgressBox = styled(Box)({
-  height: "50px",
-  width: "50px",
+  height: "40px",
+  width: "40px",
   position: "absolute",
   zIndex: 2,
-  right: 3,
-  top: 4
+  right: 5,
+  top: 5
 });
 
 const StyledDetailsContainer = styled(Box)({
   width: "50%",
   height: "100%",
   color: "FFF",
-  paddingLeft: "0.5rem"
+  paddingLeft: "0.5rem",
+  overflow: "scroll"
 });
 
 const StyledTitle = styled(Typography)({
@@ -154,7 +154,8 @@ const StyledTagline = styled(Typography)({
 });
 
 const StyledOverview = styled(Typography)({
-  fontSize: "1rem"
+  fontSize: "1rem",
+  overflow: "scroll"
 });
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
@@ -313,6 +314,7 @@ export default function DataCard({ item }) {
               >
                 Overview:
               </Typography>
+
               <StyledOverview sx={{ color: "#FFF" }}>{overview}</StyledOverview>
             </StyledDetailsContainer>
           </StyledContentBox>
