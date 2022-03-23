@@ -13,6 +13,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { easeQuadInOut } from "d3-ease";
 import AnimatedProgressProvider from "../../AnimatedProgressProvider";
 import ChangingProgressProvider from "../../ChangingProgressProvider";
+import Cast from "../Cast/Cast.js";
 
 const StyledCard = styled(Box)({
   display: "flex",
@@ -252,6 +253,17 @@ const StyledOverview = styled(Typography)({
     fontSize: "1.20rem"
   }
 });
+
+const StyledCastList = styled(Box)({
+  display: "flex",
+  overflow: "scroll",
+  overflowY: "hidden",
+  marginRight: "1rem",
+  "::-webkit-scrollbar": {
+    width: 100,
+    background: ""
+  }
+});
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
   let posterPath = item.poster_path
@@ -266,41 +278,100 @@ export default function DataCard({ item }) {
   const [genres, setGenres] = useState();
   const [runtime, setRuntime] = useState();
   const [seasonsInfo, setSeasonsInfo] = useState();
+  const [cast, setCast] = useState();
+
   // const classes = useStyles();
 
+  // const getMovieDetails = () => {
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}&language=en-US`
+  //     )
+  //     .then((dataResponse) => {
+  //       let { data } = dataResponse;
+  //       setitemDetails(data);
+  //       setGenres(data.genres);
+  //       setRuntime(data.runtime);
+  //     })
+  //     .then(console.log(itemDetails));
+  // };
+
   const getMovieDetails = () => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}&language=en-US`
-      )
-      .then((dataResponse) => {
-        let { data } = dataResponse;
-        setitemDetails(data);
-        setGenres(data.genres);
-        setRuntime(data.runtime);
+    let endpoints = [
+      `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}&language=en-US`,
+      `https://api.themoviedb.org/3/movie/${item.id}/credits?api_key=${apiKey}&language=en-US`
+    ];
+
+    Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
+      axios.spread((...allData) => {
+        let details = allData[0].data;
+        let { cast } = allData[1].data;
+        console.log(details);
+        console.log(cast);
+        setitemDetails(details);
+        setGenres(details?.genres);
+        setRuntime(details?.runtime);
+        setCast(cast);
       })
-      .then(console.log(itemDetails));
+    );
+    // axios
+    //   .get(
+
+    //   )
+    //   .then((dataResponse) => {
+    //     let { data } = dataResponse;
+    //     setitemDetails(data);
+    //     setGenres(data.genres);
+    //     setRuntime(data.runtime);
+    //   })
+    //   .then(console.log(itemDetails));
   };
 
   const getTVDetails = () => {
-    axios
-      .get(
-        `https://api.themoviedb.org/3/tv/${item.id}?api_key=${apiKey}&language=en-US`
-      )
-      .then((dataResponse) => {
-        let { data } = dataResponse;
-        setitemDetails(data);
-        setGenres(data.genres);
-        setRuntime(data.runtime);
-        if (data.hasOwnProperty("number_of_seasons")) {
+    let endpoints = [
+      `https://api.themoviedb.org/3/tv/${item.id}?api_key=${apiKey}&language=en-US`,
+      `https://api.themoviedb.org/3/tv/${item.id}/credits?api_key=${apiKey}&language=en-US`
+    ];
+
+    Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
+      axios.spread((...allData) => {
+        let details = allData[0].data;
+        let { cast } = allData[1].data;
+        console.log(details);
+        console.log(cast);
+        setitemDetails(details);
+        setGenres(details.genres);
+        setRuntime(details.runtime);
+        setCast(cast);
+        if (details.hasOwnProperty("number_of_seasons")) {
           setSeasonsInfo({
-            seasons: data.number_of_seasons,
-            episodes: data.number_of_episodes
+            seasons: details.number_of_seasons,
+            episodes: details.number_of_episodes
           });
         }
       })
-      .then(console.log(itemDetails));
+    );
   };
+
+  // const getTVDetails = () => {
+  //   axios
+  //     .get(
+  //       `https://api.themoviedb.org/3/tv/${item.id}?api_key=${apiKey}&language=en-US`
+  //     )
+  //     .then((dataResponse) => {
+  //       let { data } = dataResponse;
+  //       setitemDetails(data);
+  //       setGenres(data.genres);
+  //       setRuntime(data.runtime);
+  //       if (data.hasOwnProperty("number_of_seasons")) {
+  //         setSeasonsInfo({
+  //           seasons: data.number_of_seasons,
+  //           episodes: data.number_of_episodes
+  //         });
+  //       }
+  //     })
+  //     .then(console.log(itemDetails));
+  // };
 
   const handleOpen = () => {
     if (item.media_type === "movie") {
@@ -335,6 +406,16 @@ export default function DataCard({ item }) {
           return timeConvert()
             ? item.name + "  " + "  •  " + "  " + timeConvert()
             : item.name + " ";
+      })
+    : [];
+
+  let castList = cast
+    ? cast.map((castMember) => {
+        return (
+          <Cast key={item.id} castMember={castMember}>
+            {" "}
+          </Cast>
+        );
       })
     : [];
 
@@ -411,6 +492,7 @@ export default function DataCard({ item }) {
               <StyledTagline>{tagline}</StyledTagline>
               <StyledOverviewHeader>Overview:</StyledOverviewHeader>
               <StyledOverview sx={{ color: "#FFF" }}>{overview}</StyledOverview>
+              <StyledCastList id="castList">{castList}</StyledCastList>
             </StyledDetailsContainer>
           </StyledContentBox>
         </StyledOverlay>

@@ -20,6 +20,7 @@ export default function DataCardContainer({ filterText, page, getTotalPages }) {
     ? `
     https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&language=en-US&query=${searchInput}&page=1&include_adult=false&page=${page}`
     : `https://api.themoviedb.org/3/trending/all/day?api_key=${apiKey}&page=${page}`;
+
   useEffect(() => {
     const timer = setTimeout(() => {
       getMovies();

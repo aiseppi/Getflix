@@ -42,7 +42,7 @@ export default function PaginationBar({ onPageChange, totalPages, page }) {
         <StyledPaginationMobile
           className="mobile-pagination"
           id="pagination"
-          count={totalPages}
+          count={totalPages - 1}
           siblingCount={0}
           boundaryCount={0}
           color="secondary"
@@ -57,7 +57,7 @@ export default function PaginationBar({ onPageChange, totalPages, page }) {
         <StyledPaginationDesktop
           className="desktop-pagination"
           id="pagination"
-          count={totalPages}
+          count={totalPages - 1}
           color="secondary"
           defaultPage={1}
           page={page}
