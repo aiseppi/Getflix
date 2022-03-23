@@ -70,7 +70,7 @@ const StyledModal = styled(Modal)({
   flexDirection: "column",
   outline: 0,
   width: "100%",
-  height: "40%",
+  height: "30%",
   margin: "auto 0",
   backgroundColor: "black",
   backgroundPosition: "center",
@@ -79,6 +79,13 @@ const StyledModal = styled(Modal)({
 
   "& Box": {
     outline: 0
+  },
+
+  "@media (min-width: 768px)": {
+    height: "35%"
+  },
+  "@media (min-width: 1400px)": {
+    height: "40%"
   }
 });
 const StyledOverlay = styled(Box)({
@@ -96,7 +103,7 @@ const StyledOverlay = styled(Box)({
 });
 
 const StyledContentBox = styled(Box)({
-  minWidth: "90%",
+  width: "90%",
   height: "90%",
   backgroundColor: "rgb(0,0,0, 0.5)",
   display: "flex",
@@ -104,7 +111,17 @@ const StyledContentBox = styled(Box)({
   alignItems: "center",
   outline: 0,
   borderRadius: "0.5rem",
-  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
+  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+
+  "@media (min-width: 768px)": {
+    width: "85%",
+    height: "100%",
+    borderRadius: 0,
+    justifyContent: "flex-start"
+  },
+  "@media (min-width: 1400px)": {
+    width: "70%"
+  }
 });
 
 const StyledImgAndRatingBox = styled(Box)({
@@ -112,7 +129,24 @@ const StyledImgAndRatingBox = styled(Box)({
   width: "35%",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
   backgroundColor: "red",
-  position: "relative"
+  position: "relative",
+
+  "@media (min-width: 600px)": {
+    width: "31%"
+  },
+
+  "@media (min-width: 768px)": {
+    width: "35%"
+  },
+  "@media (min-width: 1100px)": {
+    width: "30%"
+  },
+  "@media (min-width: 1500px)": {
+    width: "26%"
+  },
+  "@media (min-width: 2500px)": {
+    width: "20%"
+  }
 });
 const StyledPosterImage = styled("img")({
   height: "100%",
@@ -126,7 +160,16 @@ const StyledProgressBox = styled(Box)({
   position: "absolute",
   zIndex: 2,
   right: 5,
-  top: 5
+  top: 5,
+
+  "@media (min-width: 768px)": {
+    height: "50px",
+    width: "50px"
+  },
+  "@media (min-width: 1100px)": {
+    height: "60px",
+    width: "60px"
+  }
 });
 
 const StyledDetailsContainer = styled(Box)({
@@ -134,28 +177,80 @@ const StyledDetailsContainer = styled(Box)({
   height: "100%",
   color: "FFF",
   paddingLeft: "0.5rem",
-  overflow: "scroll"
+  overflow: "auto",
+  overflowX: "hidden",
+  // overflowY: "hidden",
+  "::-webkit-scrollbar": {
+    width: 0,
+    background: "transparent"
+  },
+  "@media (min-width: 600px)": {
+    width: "45%"
+  },
+
+  "@media (min-width: 768px)": {
+    width: "65%"
+  },
+  "@media (min-width: 1100px)": {
+    width: "60%"
+  },
+  "@media (min-width: 1500px)": {
+    width: "74%"
+  }
 });
 
 const StyledTitle = styled(Typography)({
   fontWeight: "bold",
-  fontSize: "1.25rem"
+  fontSize: "1.25rem",
+  "@media (min-width: 768px)": {
+    fontSize: "1.5rem"
+  },
+  "@media (min-width: 1400px)": {}
 });
 
 const StyledGenresLength = styled(Typography)({
   color: "FFF",
-  fontSize: "0.90rem"
+  fontSize: "0.90rem",
+  opacity: "70%",
+
+  "@media (min-width: 768px)": {
+    fontSize: "0.99rem"
+  },
+  "@media (min-width: 1400px)": {}
 });
 
 const StyledTagline = styled(Typography)({
-  color: "FFF",
   fontStyle: "italic",
-  marginTop: "1rem"
+  marginTop: "1rem",
+  color: "#e52a6f",
+  fontWeight: "bold",
+
+  "@media (min-width: 768px)": {
+    fontSize: "1.2rem"
+  },
+  "@media (min-width: 1400px)": {}
 });
 
+const StyledOverviewHeader = styled(Typography)({
+  fontWeight: "bold",
+  color: "#FFF",
+  marginTop: "1rem",
+  "@media (min-width: 768px)": {
+    fontSize: "1.2rem"
+  },
+  "@media (min-width: 1400px)": {}
+});
 const StyledOverview = styled(Typography)({
   fontSize: "1rem",
-  overflow: "scroll"
+  opacity: "70%",
+
+  "@media (min-width: 600px)": {
+    fontSize: "1.15rem"
+  },
+
+  "@media (min-width: 768px)": {
+    fontSize: "1.20rem"
+  }
 });
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
@@ -170,6 +265,7 @@ export default function DataCard({ item }) {
   const [itemDetails, setitemDetails] = useState();
   const [genres, setGenres] = useState();
   const [runtime, setRuntime] = useState();
+  const [seasonsInfo, setSeasonsInfo] = useState();
   // const classes = useStyles();
 
   const getMovieDetails = () => {
@@ -182,7 +278,6 @@ export default function DataCard({ item }) {
         setitemDetails(data);
         setGenres(data.genres);
         setRuntime(data.runtime);
-        ``;
       })
       .then(console.log(itemDetails));
   };
@@ -197,6 +292,12 @@ export default function DataCard({ item }) {
         setitemDetails(data);
         setGenres(data.genres);
         setRuntime(data.runtime);
+        if (data.hasOwnProperty("number_of_seasons")) {
+          setSeasonsInfo({
+            seasons: data.number_of_seasons,
+            episodes: data.number_of_episodes
+          });
+        }
       })
       .then(console.log(itemDetails));
   };
@@ -230,13 +331,17 @@ export default function DataCard({ item }) {
     ? genres.map((item, index) => {
         if (genres.length != index + 1) {
           return item.name + ", ";
-        } else return item.name + "  " + "  •  " + "  " + timeConvert();
+        } else
+          return timeConvert()
+            ? item.name + "  " + "  •  " + "  " + timeConvert()
+            : item.name + " ";
       })
     : [];
 
   let releaseYear = new Date(item.release_date).getFullYear();
   let percentage = item.vote_average * 10;
   let tagline = itemDetails?.tagline ? itemDetails.tagline : " ";
+  let seasonsAndEpisodes = `${seasonsInfo?.seasons} Season(s)  ••  ${seasonsInfo?.episodes} Episodes`;
   return (
     <div>
       <StyledCard id="cardContentMainContainer" onClick={handleOpen}>
@@ -276,15 +381,6 @@ export default function DataCard({ item }) {
             <StyledImgAndRatingBox>
               <StyledPosterImage src={posterPath} />
               <StyledProgressBox>
-                {/* <ChangingProgressProvider values={[0, `${percentage}`]}>
-        {percentage => (
-          <CircularProgressbar value={percentage} text={`${percentage}%`} repeat="false" styles={buildStyles({pathTransition:
-            percentage === 0 ? "none" : "stroke-dashoffset 0.5s ease 0s",  repeat: "false", textSize: "2rem",
-                    textColor: "#FFF",
-                    pathColor: "#5f0f4e ",
-                    trailColor: " #e52a6f"})}/>
-        )}
-      </ChangingProgressProvider> */}
                 <CircularProgressbar
                   value={percentage}
                   text={`${percentage}%`}
@@ -307,14 +403,13 @@ export default function DataCard({ item }) {
               <StyledGenresLength sx={{ color: "#FFF" }}>
                 {genresList}
               </StyledGenresLength>
-
-              <StyledTagline sx={{ color: "#FFF" }}>{tagline}</StyledTagline>
-              <Typography
-                sx={{ fontWeight: "bold", color: "#FFF", marginTop: "1rem" }}
-              >
-                Overview:
+              <Typography sx={{ color: "#FFF" }}>
+                {itemDetails?.hasOwnProperty("number_of_seasons")
+                  ? `${seasonsAndEpisodes}`
+                  : " "}
               </Typography>
-
+              <StyledTagline>{tagline}</StyledTagline>
+              <StyledOverviewHeader>Overview:</StyledOverviewHeader>
               <StyledOverview sx={{ color: "#FFF" }}>{overview}</StyledOverview>
             </StyledDetailsContainer>
           </StyledContentBox>
