@@ -30,8 +30,6 @@ export default function DataCardContainer({ filterText, page, getTotalPages }) {
         const data = await response.json();
         const { results, total_pages } = data;
         handleTotalPages(total_pages);
-        // let filteredResults = results.filter(item => item.media_type != "person");
-        // console.log(filteredResults);
         setDataList(results ? results : []);
         console.log(results);
       }
@@ -47,8 +45,6 @@ export default function DataCardContainer({ filterText, page, getTotalPages }) {
       const data = await response.json();
       const { results, total_pages } = data;
       handleTotalPages(total_pages);
-      //       let filteredResults = results.filter(item => item.media_type != "person");
-      // console.log(filteredResults);
       setDataList(results ? results : []);
     }
   }, [page]);

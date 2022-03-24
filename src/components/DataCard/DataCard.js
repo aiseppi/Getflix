@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Rating from "../Rating/Rating";
+import React, { useState } from "react";
 import { Modal, Typography, Box } from "@mui/material";
 import axios from "axios";
 import { styled } from "@mui/system";
-import {
-  CircularProgressbar,
-  CircularProgressbarWithChildren,
-  buildStyles
-} from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "react-circular-progressbar/dist/styles.css";
-import { easeQuadInOut } from "d3-ease";
-import AnimatedProgressProvider from "../../AnimatedProgressProvider";
-import ChangingProgressProvider from "../../ChangingProgressProvider";
 import Cast from "../Cast/Cast.js";
 
 const StyledCard = styled(Box)({
@@ -179,7 +171,6 @@ const StyledDetailsContainer = styled(Box)(({ theme }) => ({
   paddingLeft: "0.5rem",
   overflow: "auto",
   overflowX: "hidden",
-  // overflowY: "hidden",
   "::-webkit-scrollbar": {
     width: 0,
     background: "transparent"
@@ -283,8 +274,27 @@ const StyledCastList = styled(Box)(({ theme }) => ({
   overflowY: "hidden",
   marginRight: "1rem",
   "::-webkit-scrollbar": {
-    width: 100,
-    background: ""
+    width: "10%",
+    zIndex: 2,
+    background: "rgb(229, 42, 111, 0.3)",
+    borderRadius: "0.5rem"
+  },
+  // "::-webkit-scrollbar-button": {
+  //   backgroundColor: "rgb(229, 42, 111, 0.3)"
+  // },
+  // "::-webkit-scrollbar ": {
+  //   width: "12px"            /* width of the entire scrollbar */
+  // },
+
+  // "::-webkit-scrollbar-track": {
+  //   background: "orange"        /* color of the tracking area */
+  // },
+
+  "body::-webkit-scrollbar-thumb": {
+    backgroundColor: "blue",
+    height: "20px" /* color of the scroll thumb */,
+    borderRadius: "20px" /* roundness of the scroll thumb */,
+    border: "3px solid orange" /* creates padding around scroll thumb */
   }
 }));
 export default function DataCard({ item }) {
@@ -388,9 +398,9 @@ export default function DataCard({ item }) {
     : [];
 
   let castList = cast
-    ? cast.map((castMember) => {
+    ? cast.map((castMember, index) => {
         return (
-          <Cast key={item.id} castMember={castMember}>
+          <Cast key={castMember.cast_id + `${index}`} castMember={castMember}>
             {" "}
           </Cast>
         );
@@ -457,21 +467,7 @@ export default function DataCard({ item }) {
           <StyledContentBox>
             <StyledImgAndRatingBox>
               <StyledPosterImage src={posterPath} />
-              <StyledProgressBox>
-                {userScore()}
-                {/* <CircularProgressbar
-                  value={percentage}
-                  text={`${percentage}%`}
-                  background
-                  styles={buildStyles({
-                    backgroundColor: "rgb(0,0,0,0.5)",
-                    textSize: "2rem",
-                    textColor: "#FFF",
-                    pathColor: "#e52a6f ",
-                    trailColor: " #5f0f4e"
-                  })}
-                /> */}
-              </StyledProgressBox>
+              <StyledProgressBox>{userScore()}</StyledProgressBox>
             </StyledImgAndRatingBox>
             <StyledDetailsContainer>
               <StyledTitle sx={{ color: "white" }}>

@@ -21,7 +21,6 @@ export default function FilterableDataTable() {
   const [totalPages, setTotalPages] = useState(10);
 
   function handleFilterChanged(newText) {
-    console.log(newText);
     setFilterText(newText);
     setPage(1);
   }
