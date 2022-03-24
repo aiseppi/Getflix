@@ -7,18 +7,22 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/styles";
 
-const StyledCard = styled(Card)({
+const StyledCard = styled(Card)(({ theme }) => ({
   minWidth: 120,
   margin: 2,
-  maxHeight: 200,
-  backgroundColor: "none"
-});
+  maxHeight: 150,
+  backgroundColor: "none",
+  padding: 0
+}));
 
-const StyledCastName = styled(Typography)({
-  fontWeight: "bold"
-});
+const StyledCastName = styled(Typography)(({ theme }) => ({
+  fontWeight: "bold",
+  fontSize: "0.75rem"
+}));
 
-const StyledCastCharacter = styled(Typography)({});
+const StyledCastCharacter = styled(Typography)(({ theme }) => ({
+  fontSize: "0.80rem"
+}));
 export default function Cast({ castMember }) {
   let imagePath = castMember?.profile_path
     ? `https://image.tmdb.org/t/p/original/${castMember.profile_path}`
@@ -29,7 +33,7 @@ export default function Cast({ castMember }) {
       <CardMedia
         component="img"
         alt={`image of ${castMember.name}`}
-        height="140"
+        height="100"
         width="90"
         src={`${imagePath}`}
       />
@@ -37,7 +41,11 @@ export default function Cast({ castMember }) {
         <StyledCastName gutterBottom variant="h5" component="div">
           {castMember.name}
         </StyledCastName>
-        <StyledCastCharacter variant="body2" color="text.secondary">
+        <StyledCastCharacter
+          variant="body2"
+          color="text.secondary"
+          component="div"
+        >
           {castMember.character}
         </StyledCastCharacter>
       </CardContent>

@@ -64,14 +64,15 @@ const StyledCard = styled(Box)({
     textAlign: "right"
   }
 });
-const StyledModal = styled(Modal)({
+const StyledModal = styled(Modal)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "column",
   outline: 0,
   width: "100%",
-  height: "30%",
+  // height: "30%",
+  height: "50%",
   margin: "auto 0",
   backgroundColor: "black",
   backgroundPosition: "center",
@@ -82,14 +83,16 @@ const StyledModal = styled(Modal)({
     outline: 0
   },
 
-  "@media (min-width: 768px)": {
-    height: "35%"
+  [theme.breakpoints.up("sm")]: {
+    height: "55%"
   },
-  "@media (min-width: 1400px)": {
-    height: "40%"
+
+  [theme.breakpoints.up("md")]: {
+    height: "60%"
   }
-});
-const StyledOverlay = styled(Box)({
+}));
+
+const StyledOverlay = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
   position: "absolute",
@@ -101,9 +104,9 @@ const StyledOverlay = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   outline: 0
-});
+}));
 
-const StyledContentBox = styled(Box)({
+const StyledContentBox = styled(Box)(({ theme }) => ({
   width: "90%",
   height: "90%",
   backgroundColor: "rgb(0,0,0, 0.5)",
@@ -114,48 +117,54 @@ const StyledContentBox = styled(Box)({
   borderRadius: "0.5rem",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
 
-  "@media (min-width: 768px)": {
-    width: "85%",
+  [theme.breakpoints.up("sm")]: {
+    width: "90%",
     height: "100%",
     borderRadius: 0,
     justifyContent: "flex-start"
   },
-  "@media (min-width: 1400px)": {
-    width: "70%"
+  [theme.breakpoints.up("lg")]: {
+    width: "80%"
+  },
+  [theme.breakpoints.up("xl")]: {
+    width: "60%"
   }
-});
+}));
 
-const StyledImgAndRatingBox = styled(Box)({
+const StyledImgAndRatingBox = styled(Box)(({ theme }) => ({
   height: "100%",
-  width: "35%",
+  width: "50%",
   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-  backgroundColor: "red",
   position: "relative",
+  display: "none",
 
-  "@media (min-width: 600px)": {
-    width: "31%"
+  [theme.breakpoints.up("sm")]: {
+    display: "block",
+    width: "45%"
   },
-
-  "@media (min-width: 768px)": {
-    width: "35%"
-  },
-  "@media (min-width: 1100px)": {
-    width: "30%"
-  },
-  "@media (min-width: 1500px)": {
-    width: "26%"
-  },
-  "@media (min-width: 2500px)": {
-    width: "20%"
+  [theme.breakpoints.up("md")]: {
+    width: "32%"
   }
-});
+
+  // "@media (min-width: 481px": {
+  //   display: "none"
+  // },
+
+  // "@media (min-width: 769px)": {
+  //   width: "31%"
+  // },
+
+  // "@media (min-width: 1025px)": {
+  //   width: "35%"
+  // }
+}));
 const StyledPosterImage = styled("img")({
   height: "100%",
   width: "100%",
   position: "absolute",
   zIndex: 1
 });
-const StyledProgressBox = styled(Box)({
+const StyledProgressBox = styled(Box)(({ theme }) => ({
   height: "40px",
   width: "40px",
   position: "absolute",
@@ -163,18 +172,18 @@ const StyledProgressBox = styled(Box)({
   right: 5,
   top: 5,
 
-  "@media (min-width: 768px)": {
+  [theme.breakpoints.up("sm")]: {
     height: "50px",
     width: "50px"
   },
-  "@media (min-width: 1100px)": {
+  [theme.breakpoints.up("lg")]: {
     height: "60px",
     width: "60px"
   }
-});
+}));
 
-const StyledDetailsContainer = styled(Box)({
-  width: "50%",
+const StyledDetailsContainer = styled(Box)(({ theme }) => ({
+  width: "100%",
   height: "100%",
   color: "FFF",
   paddingLeft: "0.5rem",
@@ -185,77 +194,104 @@ const StyledDetailsContainer = styled(Box)({
     width: 0,
     background: "transparent"
   },
-  "@media (min-width: 600px)": {
-    width: "45%"
+  [theme.breakpoints.up("sm")]: {
+    width: "55%"
   },
-
-  "@media (min-width: 768px)": {
-    width: "65%"
-  },
-  "@media (min-width: 1100px)": {
-    width: "60%"
-  },
-  "@media (min-width: 1500px)": {
-    width: "74%"
+  [theme.breakpoints.up("md")]: {
+    width: "68%"
   }
-});
+}));
 
-const StyledTitle = styled(Typography)({
+const StyledTitle = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
   fontSize: "1.25rem",
-  "@media (min-width: 768px)": {
+
+  [theme.breakpoints.up("sm")]: {
+    fontSize: "1.45rem"
+  },
+  [theme.breakpoints.up("md")]: {
     fontSize: "1.5rem"
   },
-  "@media (min-width: 1400px)": {}
-});
 
-const StyledGenresLength = styled(Typography)({
+  [theme.breakpoints.up("lg")]: {
+    fontSize: ""
+  },
+  [theme.breakpoints.up("xl")]: {
+    fontSize: ""
+  }
+}));
+
+const StyledGenresLength = styled(Typography)(({ theme }) => ({
   color: "FFF",
   fontSize: "0.90rem",
   opacity: "70%",
-
-  "@media (min-width: 768px)": {
-    fontSize: "0.99rem"
+  [theme.breakpoints.up("sm")]: {
+    fontSize: ""
   },
-  "@media (min-width: 1400px)": {}
-});
+  [theme.breakpoints.up("md")]: {
+    fontSize: "1rem"
+  },
+  [theme.breakpoints.up("lg")]: {
+    fontSize: ""
+  },
+  [theme.breakpoints.up("xl")]: {
+    fontSize: ""
+  }
+}));
 
-const StyledTagline = styled(Typography)({
+const StyledTagline = styled(Typography)(({ theme }) => ({
   fontStyle: "italic",
   marginTop: "1rem",
   color: "#e52a6f",
   fontWeight: "bold",
 
-  "@media (min-width: 768px)": {
-    fontSize: "1.2rem"
+  // [theme.breakpoints.up("sm")]: {
+  //   fontSize:""
+  // },
+  [theme.breakpoints.up("md")]: {
+    fontSize: "1rem"
   },
-  "@media (min-width: 1400px)": {}
-});
+  [theme.breakpoints.up("lg")]: {
+    fontSize: ""
+  },
+  [theme.breakpoints.up("xl")]: {
+    fontSize: ""
+  }
+}));
 
-const StyledOverviewHeader = styled(Typography)({
+const StyledHeader = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
   color: "#FFF",
   marginTop: "1rem",
-  "@media (min-width: 768px)": {
+
+  [theme.breakpoints.up("md")]: {
     fontSize: "1.2rem"
   },
-  "@media (min-width: 1400px)": {}
-});
-const StyledOverview = styled(Typography)({
+  [theme.breakpoints.up("lg")]: {
+    fontSize: ""
+  },
+  [theme.breakpoints.up("xl")]: {
+    fontSize: ""
+  }
+}));
+const StyledOverview = styled(Typography)(({ theme }) => ({
   fontSize: "1rem",
   opacity: "70%",
 
-  "@media (min-width: 600px)": {
-    fontSize: "1.15rem"
+  [theme.breakpoints.up("md")]: {
+    fontSize: "1.1rem"
   },
-
-  "@media (min-width: 768px)": {
-    fontSize: "1.20rem"
+  [theme.breakpoints.up("lg")]: {
+    fontSize: ""
+  },
+  [theme.breakpoints.up("xl")]: {
+    fontSize: ""
   }
-});
+}));
 
-const StyledCastList = styled(Box)({
+const StyledCastList = styled(Box)(({ theme }) => ({
   display: "flex",
+  flexDirection: "row",
   overflow: "scroll",
   overflowY: "hidden",
   marginRight: "1rem",
@@ -263,7 +299,7 @@ const StyledCastList = styled(Box)({
     width: 100,
     background: ""
   }
-});
+}));
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
   let posterPath = item.poster_path
@@ -280,22 +316,6 @@ export default function DataCard({ item }) {
   const [seasonsInfo, setSeasonsInfo] = useState();
   const [cast, setCast] = useState();
 
-  // const classes = useStyles();
-
-  // const getMovieDetails = () => {
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}&language=en-US`
-  //     )
-  //     .then((dataResponse) => {
-  //       let { data } = dataResponse;
-  //       setitemDetails(data);
-  //       setGenres(data.genres);
-  //       setRuntime(data.runtime);
-  //     })
-  //     .then(console.log(itemDetails));
-  // };
-
   const getMovieDetails = () => {
     let endpoints = [
       `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}&language=en-US`,
@@ -306,25 +326,12 @@ export default function DataCard({ item }) {
       axios.spread((...allData) => {
         let details = allData[0].data;
         let { cast } = allData[1].data;
-        console.log(details);
-        console.log(cast);
         setitemDetails(details);
         setGenres(details?.genres);
         setRuntime(details?.runtime);
         setCast(cast);
       })
     );
-    // axios
-    //   .get(
-
-    //   )
-    //   .then((dataResponse) => {
-    //     let { data } = dataResponse;
-    //     setitemDetails(data);
-    //     setGenres(data.genres);
-    //     setRuntime(data.runtime);
-    //   })
-    //   .then(console.log(itemDetails));
   };
 
   const getTVDetails = () => {
@@ -352,26 +359,6 @@ export default function DataCard({ item }) {
       })
     );
   };
-
-  // const getTVDetails = () => {
-  //   axios
-  //     .get(
-  //       `https://api.themoviedb.org/3/tv/${item.id}?api_key=${apiKey}&language=en-US`
-  //     )
-  //     .then((dataResponse) => {
-  //       let { data } = dataResponse;
-  //       setitemDetails(data);
-  //       setGenres(data.genres);
-  //       setRuntime(data.runtime);
-  //       if (data.hasOwnProperty("number_of_seasons")) {
-  //         setSeasonsInfo({
-  //           seasons: data.number_of_seasons,
-  //           episodes: data.number_of_episodes
-  //         });
-  //       }
-  //     })
-  //     .then(console.log(itemDetails));
-  // };
 
   const handleOpen = () => {
     if (item.media_type === "movie") {
@@ -490,8 +477,9 @@ export default function DataCard({ item }) {
                   : " "}
               </Typography>
               <StyledTagline>{tagline}</StyledTagline>
-              <StyledOverviewHeader>Overview:</StyledOverviewHeader>
+              <StyledHeader>Overview:</StyledHeader>
               <StyledOverview sx={{ color: "#FFF" }}>{overview}</StyledOverview>
+              <StyledHeader>Cast:</StyledHeader>
               <StyledCastList id="castList">{castList}</StyledCastList>
             </StyledDetailsContainer>
           </StyledContentBox>
@@ -500,277 +488,3 @@ export default function DataCard({ item }) {
     </div>
   );
 }
-
-// const StyledCard = styled(Box)({
-//   display: "flex",
-//   flexDirection: "column",
-//   margin: "20px",
-//   borderRadius: "20px",
-//   width: "280px",
-//   height: "425px",
-//   fontSize: "1rem",
-
-//   "@media (min-width: 500px)": {
-//     width: "200px",
-//     height: "350px"
-//   },
-
-//   "& .wrapper": {
-//     width: "100%"
-//   },
-
-//   "& .poster-image": {
-//     width: "100%",
-//     height: "400px",
-//     borderRadius: "5px",
-//     boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px",
-
-//     "@media (min-width: 500px)": {
-//       width: "100%",
-//       height: "300px"
-//     }
-//   },
-
-//   "& .item-info-container": {
-//     display: "flex",
-//     flexDirection: "column",
-//     justifyContent: "right",
-//     fontSize: "0.75rem",
-//     color: "black",
-//     textAlign: "left",
-//     paddingRight: "10px"
-//   },
-
-//   "& .title": {
-//     fontWeight: "bold",
-//     textAlign: "right",
-//     minWidth: 0
-//   },
-//   "& .release-date": {
-//     textAlign: "right"
-//   }
-// });
-// const StyledModal = styled(Modal)({
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-//   flexDirection: "column",
-//   outline: 0,
-
-//   "& Box": {
-//     outline: 0
-//   }
-// });
-
-// const StyledTopBox = styled(Box)({
-//   backgroundColor: "green",
-//   height: "35%"
-// });
-// const StyledOuterBox = styled(Box)({
-//   backgroundColor: "#FAF3F3",
-//   height: "50%",
-//   width: "80%",
-//   // padding: "1rem",
-//   position: "relative",
-//   zIndex: 1,
-
-//   "@media (min-width: 1400px)": {
-//     width: "40%"
-//   }
-// });
-
-// const StyledBackdropBox = styled(Box)({
-//   position: "absolute",
-//   zIndex: 2,
-//   top: 0,
-//   left: 0,
-//   width: "100%",
-//   height: "35%",
-//   backgroundPosition: "50% 50%",
-//   backgroundSize: "100%",
-//   backgroundRepeat: "no-repeat"
-// });
-
-// const StyledTextOverlayBox = styled(Box)({
-//   position: "absolute",
-//   zIndex: 3,
-//   top: 0,
-//   left: 0,
-//   width: "100%",
-//   height: "35%",
-//   backgroundColor: "rgb(0, 0, 0, 0.5)"
-// });
-
-// const StyledBottomBox = styled(Box)({
-//   height: "65%",
-//   width: "100%"
-//   // padding: "0.5rem"
-// });
-
-// const StyledOverlayText = styled(Typography)({
-//   position: "absolute",
-//   color: "#FFF",
-//   fontSize: "1.15rem",
-//   top: "80%",
-//   left: "10px",
-//   "@media (min-width: 700px": {
-//     fontSize: "1.75rem",
-//     top: "75%"
-//   },
-//   "@media (min-width: 1200px)": {
-//     fontSize: "1.75rem",
-//     top: "75%"
-//   }
-// });
-
-// const StyledGenres = styled(Typography)({});
-
-// export default function DataCard({ item }) {
-//   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
-//   let posterPath = item.poster_path
-//     ? `https://image.tmdb.org/t/p/original/${item.poster_path}`
-//     : "https://drpp-ny.org/dev/wp-content/uploads/2014/07/sorry-image-not-available.png";
-//   let backdropPath = item.backdrop_path
-//     ? `https://image.tmdb.org/t/p/original/${item.backdrop_path}`
-//     : "none";
-
-//   const [open, setOpen] = useState(false);
-//   const [itemDetails, setitemDetails] = useState();
-//   const [genres, setGenres] = useState();
-//   const [runtime, setRuntime] = useState();
-//   // const classes = useStyles();
-
-//   const getMovieDetails = () => {
-//     axios
-//       .get(
-//         `https://api.themoviedb.org/3/movie/${item.id}?api_key=${apiKey}&language=en-US`
-//       )
-//       .then((dataResponse) => {
-//         let { data } = dataResponse;
-//         setitemDetails(data);
-//         setGenres(data.genres);
-//         setRuntime(data.runtime);
-//         setTimeout(() => {
-//           console.log(itemDetails);
-//         }, 2000);
-//       });
-//   };
-
-//   const getTVDetails = () => {
-//     axios
-//       .get(
-//         `https://api.themoviedb.org/3/tv/${item.id}?api_key=${apiKey}&language=en-US`
-//       )
-//       .then((dataResponse) => {
-//         let { data } = dataResponse;
-//         setitemDetails(data);
-//         setGenres(data.genres);
-//         setRuntime(data.runtime);
-//         setTimeout(() => {
-//           console.log(itemDetails);
-//         }, 1000);
-//       });
-//   };
-//   const handleOpen = () => {
-//     if (item.media_type === "movie") {
-//       getMovieDetails();
-//     } else if (item.media_type === "tv") {
-//       getTVDetails();
-//     }
-//     setTimeout(() => {
-//       setOpen(true);
-//     }, 1000);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-//   let overview = item.overview.toString().replace(/&amp;/g, "&");
-
-//   const timeConvert = () => {
-//     let num = runtime;
-//     let hours = num / 60;
-//     let rhours = Math.floor(hours);
-//     let minutes = (hours - rhours) * 60;
-//     let rminutes = Math.round(minutes);
-//     return runtime ? `${rhours}h ${rminutes}m` : "";
-//   };
-//   let genresList = genres
-//     ? genres.map((item, index) => {
-//         if (genres.length != index + 1) {
-//           return item.name + " • ";
-//         } else return item.name + " • " + timeConvert();
-//       })
-//     : [];
-
-//   let releaseYear = new Date(item.release_date).getFullYear();
-
-//   return (
-//     <div>
-//       <StyledCard id="cardContentMainContainer" onClick={handleOpen}>
-//         <div className="wrapper">
-//           <img
-//             className="poster-image"
-//             id="posterImage"
-//             src={posterPath}
-//             alt="poster"
-//           />
-//         </div>
-//         <div className="item-info-container" id="itemInfoContainer">
-//           <span className="title" id="title">
-//             {item.original_title ? item.original_title : item.name}
-//           </span>
-//           {item.release_date ? (
-//             <span className="release-date">
-//               {item.release_date ? item.release_date : "N/A"}
-//             </span>
-//           ) : (
-//             <span className="release-date">
-//               {item.first_air_date ? item.first_air_date : "N/A"}
-//             </span>
-//           )}
-//         </div>
-//       </StyledCard>
-
-//       <StyledModal
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="modal-modal-title"
-//         aria-describedby="modal-modal-description"
-//       >
-//         <StyledOuterBox>
-//           <StyledTopBox>
-//             <StyledBackdropBox sx={{ backgroundImage: `url(${backdropPath})` }}>
-//               {/* <StyledImage src={backdropPath} /> */}
-//             </StyledBackdropBox>
-
-//             <StyledTextOverlayBox>
-//               <StyledOverlayText
-//                 // className={classes.overlayText}
-//                 id="modal-modal-title"
-//                 variant="h6"
-//                 component="h2"
-//               >
-//                 {item.original_title ? item.original_title : item.name}{" "}
-//                 {releaseYear ? `(${releaseYear})` : ""}
-//               </StyledOverlayText>
-//             </StyledTextOverlayBox>
-//           </StyledTopBox>
-//           <StyledBottomBox>
-//             <StyledGenres>{genresList}</StyledGenres>
-//             <Typography>Tagline</Typography>
-//             <Typography
-//               className="tagline"
-//               id="modal-modal-description"
-//               sx={{ mt: 2 }}
-//             >
-//               {overview}
-//             </Typography>
-//             <Typography className="overview"></Typography>
-//           </StyledBottomBox>
-//         </StyledOuterBox>
-//       </StyledModal>
-//     </div>
-//   );
-// }
