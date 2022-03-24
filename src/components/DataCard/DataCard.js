@@ -71,7 +71,6 @@ const StyledModal = styled(Modal)(({ theme }) => ({
   flexDirection: "column",
   outline: 0,
   width: "100%",
-  // height: "30%",
   height: "50%",
   margin: "auto 0",
   backgroundColor: "black",
@@ -89,6 +88,9 @@ const StyledModal = styled(Modal)(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {
     height: "60%"
+  },
+  [theme.breakpoints.up("xl")]: {
+    height: "65%"
   }
 }));
 
@@ -145,18 +147,6 @@ const StyledImgAndRatingBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     width: "32%"
   }
-
-  // "@media (min-width: 481px": {
-  //   display: "none"
-  // },
-
-  // "@media (min-width: 769px)": {
-  //   width: "31%"
-  // },
-
-  // "@media (min-width: 1025px)": {
-  //   width: "35%"
-  // }
 }));
 const StyledPosterImage = styled("img")({
   height: "100%",
@@ -214,10 +204,10 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   },
 
   [theme.breakpoints.up("lg")]: {
-    fontSize: ""
+    fontSize: "1.7rem"
   },
   [theme.breakpoints.up("xl")]: {
-    fontSize: ""
+    fontSize: "2rem"
   }
 }));
 
@@ -232,10 +222,10 @@ const StyledGenresLength = styled(Typography)(({ theme }) => ({
     fontSize: "1rem"
   },
   [theme.breakpoints.up("lg")]: {
-    fontSize: ""
+    fontSize: "1.1rem"
   },
   [theme.breakpoints.up("xl")]: {
-    fontSize: ""
+    fontSize: "1.3rem"
   }
 }));
 
@@ -245,17 +235,14 @@ const StyledTagline = styled(Typography)(({ theme }) => ({
   color: "#e52a6f",
   fontWeight: "bold",
 
-  // [theme.breakpoints.up("sm")]: {
-  //   fontSize:""
-  // },
   [theme.breakpoints.up("md")]: {
-    fontSize: "1rem"
+    fontSize: "1.2rem"
   },
   [theme.breakpoints.up("lg")]: {
-    fontSize: ""
+    fontSize: "1.3rem"
   },
   [theme.breakpoints.up("xl")]: {
-    fontSize: ""
+    fontSize: "1.5rem"
   }
 }));
 
@@ -268,10 +255,10 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
     fontSize: "1.2rem"
   },
   [theme.breakpoints.up("lg")]: {
-    fontSize: ""
+    fontSize: "1.3rem"
   },
   [theme.breakpoints.up("xl")]: {
-    fontSize: ""
+    fontSize: "1.5rem"
   }
 }));
 const StyledOverview = styled(Typography)(({ theme }) => ({
@@ -282,10 +269,10 @@ const StyledOverview = styled(Typography)(({ theme }) => ({
     fontSize: "1.1rem"
   },
   [theme.breakpoints.up("lg")]: {
-    fontSize: ""
+    fontSize: "1.2rem"
   },
   [theme.breakpoints.up("xl")]: {
-    fontSize: ""
+    fontSize: "1.4rem"
   }
 }));
 
@@ -374,7 +361,11 @@ export default function DataCard({ item }) {
     setOpen(false);
   };
 
-  let overview = item.overview?.toString().replace(/&amp;/g, "&");
+  let overview = item.overview
+    ? item.overview?.toString().replace(/&amp;/g, "&")
+    : `Overview not available for "${
+        item.original_title ? item.original_title : item.name
+      }".`;
 
   const timeConvert = () => {
     let num = runtime;
@@ -406,8 +397,26 @@ export default function DataCard({ item }) {
       })
     : [];
 
+  let percentage = item.vote_average ? item.vote_average * 10 : "";
+  let userScore = () => {
+    if (percentage != "") {
+      return (
+        <CircularProgressbar
+          value={percentage}
+          text={`${percentage}%`}
+          background
+          styles={buildStyles({
+            backgroundColor: "rgb(0,0,0,0.5)",
+            textSize: "2rem",
+            textColor: "#FFF",
+            pathColor: "#e52a6f ",
+            trailColor: " #5f0f4e"
+          })}
+        />
+      );
+    }
+  };
   let releaseYear = new Date(item.release_date).getFullYear();
-  let percentage = item.vote_average * 10;
   let tagline = itemDetails?.tagline ? itemDetails.tagline : " ";
   let seasonsAndEpisodes = `${seasonsInfo?.seasons} Season(s)  ••  ${seasonsInfo?.episodes} Episodes`;
   return (
@@ -449,7 +458,8 @@ export default function DataCard({ item }) {
             <StyledImgAndRatingBox>
               <StyledPosterImage src={posterPath} />
               <StyledProgressBox>
-                <CircularProgressbar
+                {userScore()}
+                {/* <CircularProgressbar
                   value={percentage}
                   text={`${percentage}%`}
                   background
@@ -460,7 +470,7 @@ export default function DataCard({ item }) {
                     pathColor: "#e52a6f ",
                     trailColor: " #5f0f4e"
                   })}
-                />
+                /> */}
               </StyledProgressBox>
             </StyledImgAndRatingBox>
             <StyledDetailsContainer>
