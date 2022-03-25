@@ -6,6 +6,10 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "react-circular-progressbar/dist/styles.css";
 import Cast from "../Cast/Cast.js";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import Slider from "react-slick";
 
 const StyledCard = styled(Box)({
   display: "flex",
@@ -267,43 +271,44 @@ const StyledOverview = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const StyledCastList = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  overflow: "scroll",
-  overflowY: "hidden",
-  marginRight: "1rem",
-  "::-webkit-scrollbar": {
-    width: "10%",
-    zIndex: 2,
-    background: "rgb(229, 42, 111, 0.3)",
-    borderRadius: "0.5rem"
-  },
-  // "::-webkit-scrollbar-button": {
-  //   backgroundColor: "rgb(229, 42, 111, 0.3)"
-  // },
-  // "::-webkit-scrollbar ": {
-  //   width: "12px"            /* width of the entire scrollbar */
-  // },
+// const StyledCastList = styled(Box)(({ theme }) => ({
+//   display: "flex",
+//   flexDirection: "row",
+//   overflow: "scroll",
+//   overflowY: "hidden",
+//   marginRight: "1rem",
+//   "::-webkit-scrollbar": {
+//     width: "10%",
+//     zIndex: 2,
+//     background: "rgb(229, 42, 111, 0.3)",
+//     borderRadius: "0.5rem"
+//   },
+//   // "::-webkit-scrollbar-button": {
+//   //   backgroundColor: "rgb(229, 42, 111, 0.3)"
+//   // },
+//   // "::-webkit-scrollbar ": {
+//   //   width: "12px"            /* width of the entire scrollbar */
+//   // },
 
-  // "::-webkit-scrollbar-track": {
-  //   background: "orange"        /* color of the tracking area */
-  // },
+//   // "::-webkit-scrollbar-track": {
+//   //   background: "orange"        /* color of the tracking area */
+//   // },
 
-  "body::-webkit-scrollbar-thumb": {
-    backgroundColor: "blue",
-    height: "20px" /* color of the scroll thumb */,
-    borderRadius: "20px" /* roundness of the scroll thumb */,
-    border: "3px solid orange" /* creates padding around scroll thumb */
-  }
-}));
+//   "body::-webkit-scrollbar-thumb": {
+//     backgroundColor: "blue",
+//     height: "20px" /* color of the scroll thumb */,
+//     borderRadius: "20px" /* roundness of the scroll thumb */,
+//     border: "3px solid orange" /* creates padding around scroll thumb */
+//   }
+// }));
+
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";
-  let posterPath = item.poster_path
-    ? `https://image.tmdb.org/t/p/original/${item.poster_path}`
+  let posterPath = item?.poster_path
+    ? `https://image.tmdb.org/t/p/original/${item?.poster_path}`
     : "https://drpp-ny.org/dev/wp-content/uploads/2014/07/sorry-image-not-available.png";
-  let backdropPath = item.backdrop_path
-    ? `https://image.tmdb.org/t/p/original/${item.backdrop_path}`
+  let backdropPath = item?.backdrop_path
+    ? `https://image.tmdb.org/t/p/original/${item?.backdrop_path}`
     : "none";
 
   const [open, setOpen] = useState(false);
@@ -429,6 +434,7 @@ export default function DataCard({ item }) {
   let releaseYear = new Date(item.release_date).getFullYear();
   let tagline = itemDetails?.tagline ? itemDetails.tagline : " ";
   let seasonsAndEpisodes = `${seasonsInfo?.seasons} Season(s)  ••  ${seasonsInfo?.episodes} Episodes`;
+
   return (
     <div>
       <StyledCard id="cardContentMainContainer" onClick={handleOpen}>
@@ -486,7 +492,18 @@ export default function DataCard({ item }) {
               <StyledHeader>Overview:</StyledHeader>
               <StyledOverview sx={{ color: "#FFF" }}>{overview}</StyledOverview>
               <StyledHeader>Cast:</StyledHeader>
-              <StyledCastList id="castList">{castList}</StyledCastList>
+              <Slider
+                dots={false}
+                slidesToShow={3}
+                variableWidth={true}
+                infinite={false}
+                autoplay={false}
+                autoplaySpeed={3000}
+                swipeToSlide={true}
+                pauseOnFocus={true}
+              >
+                {castList}
+              </Slider>
             </StyledDetailsContainer>
           </StyledContentBox>
         </StyledOverlay>

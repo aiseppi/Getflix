@@ -34,7 +34,18 @@ export default function Cast({ castMember }) {
         width="90"
         src={`${imagePath}`}
       />
-      <CardContent sx={{ textAlign: "center", margin: 0, padding: 0.5 }}>
+      <CardContent
+        sx={{
+          textAlign: "center",
+          margin: 0,
+          padding: 0,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column"
+        }}
+      >
         <StyledCastName variant="h5" component="div">
           {castMember.name}
         </StyledCastName>
