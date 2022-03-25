@@ -317,6 +317,7 @@ export default function DataCard({ item }) {
   const [runtime, setRuntime] = useState();
   const [seasonsInfo, setSeasonsInfo] = useState();
   const [cast, setCast] = useState();
+  // const [ratingColor, setRatingColor] = useState();
 
   const getMovieDetails = () => {
     let endpoints = [
@@ -413,6 +414,17 @@ export default function DataCard({ item }) {
     : [];
 
   let percentage = item.vote_average ? item.vote_average * 10 : "";
+
+  const getRatingColor = (percentage) => {
+    if (percentage >= 75) {
+      return "green";
+    } else if (percentage <= 74 && percentage >= 55) {
+      return "yellow";
+    } else return "red";
+  };
+
+  let ratingColor = getRatingColor(percentage);
+
   let userScore = () => {
     if (percentage != "") {
       return (
@@ -424,8 +436,9 @@ export default function DataCard({ item }) {
             backgroundColor: "rgb(0,0,0,0.5)",
             textSize: "2rem",
             textColor: "#FFF",
-            pathColor: "#e52a6f ",
-            trailColor: " #5f0f4e"
+            pathColor: `${ratingColor}`,
+            trailColor: " rgb(0,0,0,0.5)",
+            border: "none"
           })}
         />
       );
