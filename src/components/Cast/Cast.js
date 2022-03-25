@@ -3,14 +3,13 @@ import { Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { styled } from "@mui/styles";
+import { styled } from "@mui/system";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   minWidth: 120,
   margin: 2,
   maxHeight: 150,
-  backgroundColor: "none",
-  padding: 0
+  backgroundColor: "none"
 }));
 
 const StyledCastName = styled(Typography)(({ theme }) => ({
