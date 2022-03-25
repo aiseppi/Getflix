@@ -79,15 +79,15 @@ const StyledModal = styled(Modal)(({ theme }) => ({
   },
 
   [theme.breakpoints.up("sm")]: {
-    height: "55%"
+    height: "45%"
   },
 
   [theme.breakpoints.up("md")]: {
-    height: "60%"
-  },
-  [theme.breakpoints.up("xl")]: {
-    height: "65%"
+    height: "50%"
   }
+  // [theme.breakpoints.up("xl")]: {
+  //   height: "60%"
+  // }
 }));
 
 const StyledOverlay = styled(Box)(({ theme }) => ({
@@ -270,37 +270,6 @@ const StyledOverview = styled(Typography)(({ theme }) => ({
     fontSize: "1.4rem"
   }
 }));
-
-// const StyledCastList = styled(Box)(({ theme }) => ({
-//   display: "flex",
-//   flexDirection: "row",
-//   overflow: "scroll",
-//   overflowY: "hidden",
-//   marginRight: "1rem",
-//   "::-webkit-scrollbar": {
-//     width: "10%",
-//     zIndex: 2,
-//     background: "rgb(229, 42, 111, 0.3)",
-//     borderRadius: "0.5rem"
-//   },
-//   // "::-webkit-scrollbar-button": {
-//   //   backgroundColor: "rgb(229, 42, 111, 0.3)"
-//   // },
-//   // "::-webkit-scrollbar ": {
-//   //   width: "12px"            /* width of the entire scrollbar */
-//   // },
-
-//   // "::-webkit-scrollbar-track": {
-//   //   background: "orange"        /* color of the tracking area */
-//   // },
-
-//   "body::-webkit-scrollbar-thumb": {
-//     backgroundColor: "blue",
-//     height: "20px" /* color of the scroll thumb */,
-//     borderRadius: "20px" /* roundness of the scroll thumb */,
-//     border: "3px solid orange" /* creates padding around scroll thumb */
-//   }
-// }));
 
 export default function DataCard({ item }) {
   let apiKey = "96cf33fdedaec4865a18d38e84e62ffc";

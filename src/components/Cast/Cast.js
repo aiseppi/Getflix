@@ -7,14 +7,18 @@ import { styled } from "@mui/system";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   minWidth: 120,
+  // maxWidth: 120,
   margin: 2,
-  maxHeight: 150,
-  backgroundColor: "none"
+  minHeight: 150,
+  backgroundColor: "none",
+  padding: 0
 }));
 
 const StyledCastName = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
-  fontSize: "0.75rem"
+  fontSize: "0.75rem",
+  marginTop: 2
+  // marginBottom: 0,
 }));
 
 const StyledCastCharacter = styled(Typography)(({ theme }) => ({
@@ -29,7 +33,7 @@ export default function Cast({ castMember }) {
       <CardMedia
         component="img"
         alt={`image of ${castMember.name}`}
-        height="100"
+        height="120"
         width="90"
         src={`${imagePath}`}
       />
