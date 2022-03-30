@@ -476,7 +476,7 @@ export default function DataCard({ item }) {
               <StyledHeader>Cast:</StyledHeader>
               <Slider
                 dots={false}
-                slidesToShow={3}
+                slidesToShow={2}
                 variableWidth={true}
                 infinite={false}
                 autoplay={false}
