@@ -477,10 +477,10 @@ export default function DataCard({ item }) {
               <Slider
                 dots={false}
                 rows={1}
-                infinite
+                infinite={true}
                 slidesToShow={2}
                 variableWidth={true}
-                infinite={false}
+                // infinite={false}
                 autoplay={false}
                 autoplaySpeed={3000}
                 swipeToSlide={true}
